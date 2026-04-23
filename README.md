@@ -12,5 +12,5 @@ not permitted. See [LICENSE](LICENSE) for the full terms.
 If you fork or build on this project, please retain this copyright notice
 and credit the original source:
 
-> This project is based on HamsterTrades (https://github.com/jingmchen/TradingPenguin)
+> This project is based on HamsterTrades (https://github.com/jingmchen/HamsterTrades)
 > by Tan Jing Ming, licensed under PolyForm Noncommercial 1.0.0.
