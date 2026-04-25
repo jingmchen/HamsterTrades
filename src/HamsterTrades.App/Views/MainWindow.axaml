@@ -1,0 +1,6 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:HamsterTrades.App.ViewModels"
+        x:DataType="vm:MainWindowViewModel"
+        x:Class="HamsterTrades.App.Views.MainWindow">
+</Window>

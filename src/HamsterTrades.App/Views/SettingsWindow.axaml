@@ -1,0 +1,163 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:HamsterTrades.App.ViewModels"
+        x:DataType="vm:SettingsViewModel"
+        x:Class="HamsterTrades.App.Views.SettingsWindow">
+    <StackPanel Spacing="24" Margin="24">
+
+        <!-- ── Theme Mode ─────────────────────────────────────────── -->
+
+        <StackPanel Spacing="8">
+            <TextBlock Text="THEME MODE"
+                       FontSize="11"
+                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                       LetterSpacing="2" />
+
+            <Border Classes="Card">
+                <StackPanel Spacing="0">
+
+                    <!-- Light / Dark / Auto -->
+                    <Grid ColumnDefinitions="* Auto" Margin="0,0,0,14">
+                        <StackPanel Grid.Column="0" Spacing="2">
+                            <TextBlock Text="Colour scheme" />
+                            <TextBlock Text="Choose light, dark, or follow the system"
+                                       FontSize="12"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    Spacing="6">
+                            <RadioButton Content="Light"
+                                         GroupName="Theme"
+                                         IsChecked="{Binding IsLightTheme}"
+                                         Classes="Pill" />
+                            <RadioButton Content="Dark"
+                                         GroupName="Theme"
+                                         IsChecked="{Binding IsDarkTheme}"
+                                         Classes="Pill" />
+                            <RadioButton Content="Auto"
+                                         GroupName="Theme"
+                                         IsChecked="{Binding IsSystemTheme}"
+                                         Classes="Pill" />
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Auto follow divider — only visible in System mode -->
+                    <Separator IsVisible="{Binding IsSystemTheme}" />
+
+                    <Grid ColumnDefinitions="* Auto"
+                          IsVisible="{Binding IsSystemTheme}"
+                          Margin="0,14,0,0">
+                        <StackPanel Grid.Column="0" Spacing="2">
+                            <TextBlock Text="Follow system automatically" />
+                            <TextBlock Text="Switches at sunset / sunrise"
+                                       FontSize="12"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+                        </StackPanel>
+                        <ToggleSwitch Grid.Column="1"
+                                      IsChecked="{Binding FollowSystemTheme}"
+                                      OffContent=""
+                                      OnContent="" />
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <!-- ── Accent Colour ──────────────────────────────────────── -->
+
+        <StackPanel Spacing="8">
+            <TextBlock Text="ACCENT COLOUR"
+                       FontSize="11"
+                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                       LetterSpacing="2" />
+
+            <Border Classes="Card">
+                <StackPanel Spacing="0">
+
+                    <!-- Swatches -->
+                    <Grid ColumnDefinitions="* Auto" Margin="0,0,0,14">
+                        <StackPanel Grid.Column="0" Spacing="2">
+                            <TextBlock Text="Active accent" />
+                            <TextBlock Text="{Binding CurrentAccent}"
+                                       FontSize="12"
+                                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+                        </StackPanel>
+
+                        <ItemsControl Grid.Column="1"
+                                      ItemsSource="{Binding Accents}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <RadioButton GroupName="Accent"
+                                                 IsChecked="{Binding IsSelected}"
+                                                 Command="{Binding $parent[UserControl].((vm:SettingsViewModel)DataContext).SelectAccentCommand}"
+                                                 CommandParameter="{Binding Accent}"
+                                                 Classes="Swatch"
+                                                 ToolTip.Tip="{Binding Name}">
+                                        <Ellipse Width="22"
+                                                 Height="22"
+                                                 Fill="{Binding Color}" />
+                                    </RadioButton>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+
+                    <!-- Preview -->
+                    <Separator />
+                    <Grid ColumnDefinitions="* Auto" Margin="0,14,0,0">
+                        <TextBlock Grid.Column="0" Text="Preview" />
+                        <Button Grid.Column="1"
+                                Content="Sample button"
+                                Background="{Binding AccentBrush}"
+                                Foreground="White"
+                                CornerRadius="6"
+                                Padding="12,6" />
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+        </StackPanel>
+
+        <!-- ── Persistence ────────────────────────────────────────── -->
+
+        <StackPanel Spacing="8">
+            <TextBlock Text="PERSISTENCE"
+                       FontSize="11"
+                       Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}"
+                       LetterSpacing="2" />
+
+            <Border Classes="Card">
+                <Grid ColumnDefinitions="* Auto">
+                    <StackPanel Grid.Column="0" Spacing="2">
+                        <TextBlock Text="Auto-save preferences" />
+                        <TextBlock Text="Writes to userprefs.json on every change"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+                    </StackPanel>
+                    <ToggleSwitch Grid.Column="1"
+                                  IsChecked="{Binding AutoSave}"
+                                  OffContent=""
+                                  OnContent="" />
+                </Grid>
+            </Border>
+        </StackPanel>
+
+        <!-- ── Status ─────────────────────────────────────────────── -->
+
+        <Border Classes="StatusBar">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Ellipse Width="7" Height="7" Fill="#639922" VerticalAlignment="Center" />
+                <TextBlock Text="{Binding StatusText}"
+                           FontSize="12"
+                           Foreground="{DynamicResource SystemControlForegroundBaseMediumBrush}" />
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</Window>
