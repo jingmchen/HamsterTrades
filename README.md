@@ -1,6 +1,8 @@
 # HamsterTrades
 Trading bot to automate decisions
 
+C# Avalonia (MVVM) application with pythonnet to communicate with Python packages
+
 ## Licensing
 Copyright (c) 2026 Tan Jing Ming
 
